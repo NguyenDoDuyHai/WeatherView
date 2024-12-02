@@ -42,7 +42,7 @@ dependencies {
     implementation 'androidx.core:core:1.2.0'
     implementation 'androidx.annotation:annotation:1.1.0'
 
-  //  implementation 'com.github.plattysoft:Leonids:1746429'
+ 
     implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
 
     testImplementation 'junit:junit:4.13'
