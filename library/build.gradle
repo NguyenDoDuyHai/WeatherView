@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'com.github.dcendents.android-maven'
+    id 'se.patrikerdes.use-latest-versions' version '0.2.13'
+    id "net.ltgt.errorprone" version "1.1.1"
+}
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode 7
+        versionName "3.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+group = 'com.github.MatteoBattilana'
+version = android.defaultConfig.versionName
+project.archivesBaseName = 'WeatherView'
+
+dependencies {
+    errorprone "com.google.errorprone:error_prone_core:$errorprone_version"
+    errorproneJavac "com.google.errorprone:javac:$errorprone_javac_version"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Support lib
+    implementation 'androidx.core:core:1.2.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+
+  //  implementation 'com.github.plattysoft:Leonids:1746429'
+    implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
+
+    testImplementation 'junit:junit:4.13'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

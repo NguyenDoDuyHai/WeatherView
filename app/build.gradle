@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'se.patrikerdes.use-latest-versions' version '0.2.13'
+    id "net.ltgt.errorprone" version "1.1.1"
+}
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "xyz.matteobattilana.weatherview"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 7
+        versionName "3.0.0"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    errorprone "com.google.errorprone:error_prone_core:$errorprone_version"
+    errorproneJavac("com.google.errorprone:javac:$errorprone_javac_version")
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Support lib
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    // Anko
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
+    implementation project(':library')
+
+    testImplementation 'junit:junit:4.13'
+}
